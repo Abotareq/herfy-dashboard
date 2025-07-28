@@ -1,4 +1,4 @@
-export interface IAddress {
+/* export interface IAddress {
   buildingNo: number;
   street: string;
   nearestLandMark?: string;
@@ -8,7 +8,7 @@ export interface IAddress {
   addressType: 'home' | 'work';
   isDefault?: boolean;
 }
-
+ */
 export interface IUser {
   _id?: string;
   userName: string;
