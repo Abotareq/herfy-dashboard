@@ -104,6 +104,7 @@
           <button
           
             type="button"
+            *ngIf="(user._id)"
             (click)="deleteUser(user._id)"
             class="ml-2 text-red-600 hover:text-red-900"
           >
