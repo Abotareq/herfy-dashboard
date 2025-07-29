@@ -9,7 +9,7 @@ import { error, log } from 'console';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NgIf],
+  imports: [CommonModule, FormsModule, RouterModule, AsyncPipe, NgIf],
   templateUrl: './user.html',
   styleUrls: ['./user.css'],
 })
@@ -32,7 +32,7 @@ export class User implements OnInit {
       },
     });
   }
-  // delete user
+ 
   deleteUser(id: string) {
     if (!id) {
       console.error('User ID is undefined');
@@ -48,5 +48,4 @@ export class User implements OnInit {
       },
     });
   }
-
 }
