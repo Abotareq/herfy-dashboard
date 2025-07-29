@@ -32,20 +32,7 @@ export class User implements OnInit {
       },
     });
   }
-
-
-  /*   deleteUser(userId: string) {
-    if (!confirm('Are you sure you want to delete this user?')) return;
-
-    this.userService.deleteUserByAdmin(userId).subscribe({
-      next: () => {
-        this.users = this.users.filter((user) => user._id !== userId);
-      },
-      error: (err) => {
-        this.error = err?.error?.message || 'Failed to delete user.';
-      },
-    });
-  } */
+  // delete user
   deleteUser(id: string) {
     if (!id) {
       console.error('User ID is undefined');
