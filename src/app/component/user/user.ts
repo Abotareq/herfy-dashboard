@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NgIf],
+  imports: [CommonModule, FormsModule, RouterModule, AsyncPipe, NgIf],
   templateUrl: './user.html',
   styleUrls: ['./user.css'],
 })
