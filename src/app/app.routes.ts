@@ -9,5 +9,6 @@ export const routes: Routes = [
     component: MainComponent,
     children: [{ path: 'user', component: User }],
   },
+  
   { path: '**', component: Notfound },
 ];
