@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css'
+  styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  adminIconDropDown:boolean = false;
+  adminIconDropDown: boolean = false;
   adminSideBare: boolean = false;
-  constructor(private eRef:ElementRef){}
+  constructor(private eRef: ElementRef) {}
   toggleUserDropDown() {
     this.adminIconDropDown = !this.adminIconDropDown;
   }
@@ -21,7 +22,7 @@ export class Sidebar {
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
     if (!this.eRef.nativeElement.contains(event.target)) {
-          this.adminIconDropDown = false;
+      this.adminIconDropDown = false;
     }
   }
 }
