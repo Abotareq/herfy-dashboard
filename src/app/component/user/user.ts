@@ -5,6 +5,7 @@ import { UserService } from '../../services/user-services/user.service';
 import { IUser } from '../../models/iuser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { error, log } from 'console';
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -31,19 +32,7 @@ export class User implements OnInit {
       },
     });
   }
-
-  /*   deleteUser(userId: string) {
-    if (!confirm('Are you sure you want to delete this user?')) return;
-
-    this.userService.deleteUserByAdmin(userId).subscribe({
-      next: () => {
-        this.users = this.users.filter((user) => user._id !== userId);
-      },
-      error: (err) => {
-        this.error = err?.error?.message || 'Failed to delete user.';
-      },
-    });
-  } */
+ 
   deleteUser(id: string) {
     if (!id) {
       console.error('User ID is undefined');
