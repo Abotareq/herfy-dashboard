@@ -5,6 +5,7 @@ import { UserService } from '../../services/user-services/user.service';
 import { IUser } from '../../models/iuser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { error, log } from 'console';
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -31,6 +32,7 @@ export class User implements OnInit {
       },
     });
   }
+
 
   /*   deleteUser(userId: string) {
     if (!confirm('Are you sure you want to delete this user?')) return;
@@ -59,4 +61,5 @@ export class User implements OnInit {
       },
     });
   }
+
 }
