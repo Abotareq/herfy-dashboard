@@ -1,4 +1,4 @@
-<div class="">
+<div class="p-6">
   <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
     <thead class="bg-gray-50">
       <tr>
@@ -39,7 +39,6 @@
         </th>
       </tr>
     </thead>
-
     <tbody class="bg-white divide-y divide-gray-200">
       @if (loading) {
       <tr>
@@ -64,7 +63,6 @@
         <td class="px-6 py-4 whitespace-nowrap">
           <div class="text-sm text-gray-900">{{ user._id }}</div>
         </td>
-
         <td class="px-6 py-4 whitespace-nowrap">
           <div class="flex items-center">
             <div class="flex-shrink-0 h-10 w-10">
@@ -82,7 +80,6 @@
             </div>
           </div>
         </td>
-
         <td class="px-6 py-4 whitespace-nowrap">
           <div class="text-sm text-gray-900">
             {{ user.addresses?.[0]?.country || '—' }}
@@ -91,24 +88,28 @@
             {{ user.addresses?.[0]?.city || 'N/A' }}
           </div>
         </td>
-
         <td class="px-6 py-4 whitespace-nowrap">
           <div class="text-sm text-gray-900">{{ user.phone || '—' }}</div>
         </td>
-
         <td
           class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize"
         >
           {{ user.role }}
         </td>
-
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
           {{ user.email }}
         </td>
-
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-          <!-- <a href="#" class="text-indigo-600 hover:text-indigo-900" (click)="updateUser(user)">Edit</a> -->
-          <a href="#" class="ml-2 text-red-600 hover:text-red-900" (click)="deleteUser(user._id!)">Delete</a>
+          <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+          <button
+          
+            type="button"
+            *ngIf="(user._id)"
+            (click)="deleteUser(user._id)"
+            class="ml-2 text-red-600 hover:text-red-900"
+          >
+            Delete
+          </button>
         </td>
       </tr>
       } }
