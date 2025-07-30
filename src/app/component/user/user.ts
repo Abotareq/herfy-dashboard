@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { UserService } from '../../services/user-services/user.service';
 import { IUser } from '../../models/iuser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { error, log } from 'console';
 @Component({
   selector: 'app-user',
   standalone: true,
