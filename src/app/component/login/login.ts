@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 @Component({
-  imports:[FormsModule,CommonModule],
-  standalone:true,
+  imports: [FormsModule, CommonModule, RouterModule],
+  standalone: true,
   selector: 'app-login',
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
@@ -29,7 +29,7 @@ export class Login {
       this.loginService.signIn(credentials).subscribe({
         next: (res) => {
           console.log('Login success', res);
-          this.router.navigate(['']);
+          this.router.navigate(['/user']);
         },
         error: (err) => {
           console.error('Login failed', err);
