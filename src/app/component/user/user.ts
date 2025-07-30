@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+import {CommonModule, NgIf } from '@angular/common';
 import { UserService } from '../../services/user-services/user.service';
 import { IUser } from '../../models/iuser';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, AsyncPipe, NgIf],
+  imports: [CommonModule, FormsModule, RouterModule, NgIf],
   templateUrl: './user.html',
   styleUrls: ['./user.css'],
 })
