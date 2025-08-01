@@ -4,6 +4,7 @@ import { UserService } from '../../services/user-services/user.service';
 import { IUser } from '../../models/iuser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -16,14 +17,15 @@ export class User implements OnInit {
   loading = true;
   error: string | null = null;
   userProps: IUser = {} as IUser;
-  editingUserId: String | null = null
-  constructor(private userService: UserService) {}
+  editingUserId: string | null = null
+  constructor(private userService: UserService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe({
       next: (res) => {
         this.users = res.data.users;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = err?.error?.message || 'Failed to load users.';
@@ -41,6 +43,7 @@ export class User implements OnInit {
       next: () => {
         this.users = this.users.filter((user) => user._id !== id);
         console.log('User deleted:', id);
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error deleting user:', err);
@@ -48,31 +51,46 @@ export class User implements OnInit {
     });
   }
   // start edit function to make the body ready
-  startEdit(user: IUser){
-    this.editingUserId = user._id;
-    this.userProps = {...user};
-  }
-  // cancel edit
-  cancelEdit(){
-    this.editingUserId = null;
-    this.userProps = {} as IUser;
+startEdit(user: IUser): void {
+  this.editingUserId = user._id;
+  this.userProps = { ...user };
+}
+
+cancelEdit(): void {
+  this.editingUserId = null;
+  this.userProps = {} as IUser;
+}
+
+updateUser(): void {
+  console.log("saved clicked", this.userProps)
+  if (!this.userProps._id) {
+    console.log("error can't get id");
+    return;
   }
 
-  updateUser(users: IUser){
-    if(!users._id){
-      alert ("Cann't Update User")
+  const updatedData = {
+    firstName: this.userProps.firstName,
+    lastName: this.userProps.lastName,
+    email: this.userProps.email,
+    role: this.userProps.role,
+    phone: this.userProps.phone
+  };
+  console.log("saving the user data", this.userProps._id, updatedData)
+  this.userService.updateUserByAdmin(this.userProps._id, updatedData).subscribe({
+    next: (response) => {
+      const index = this.users.findIndex(user => user._id === this.userProps._id);
+      if (index !== -1) {
+        this.users = this.users.map((u) => 
+        u._id === this.userProps._id ? {...u, ...updatedData} : u)
+      }
+      this.editingUserId = null;
+      this.userProps = {} as IUser;
+      console.log('User updated successfully');
+      this.cdr.detectChanges();
+    },
+    error: (error) => {
+      console.error("Update error:", error);
     }
-    this.userService.updateUserByAdmin(users._id, users).subscribe({
-      next: (updateUser) => {
-        const index = this.users.findIndex(user => user._id === updateUser._id);
-        if(index !== -1){
-          this.users[index] = updateUser;  
-        }
-        this.cancelEdit();
-      },
-     error: (error) => {
-      console.log("Error", error);
-     }
-    })
-  }
+  });
+}
 }
