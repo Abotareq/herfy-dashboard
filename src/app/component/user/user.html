@@ -100,7 +100,7 @@
           {{ user.email }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-          <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+          
           <button
             type="button"
             *ngIf="(user._id)"
@@ -109,6 +109,13 @@
           >
             Delete
           </button>
+          <button *ngIf="editingUserId !== user._id" (click)="startEdit(user)" class="ml-2 text-red-600 hover:text-red-900">
+            Edit
+          </button>
+          <div *ngIf="editingUserId === user._id">
+            <button (click)="updateUser(user)">save</button>
+            <button (click)="cancelEdit()">cancel</button>
+          </div>
         </td>
       </tr>
       } }

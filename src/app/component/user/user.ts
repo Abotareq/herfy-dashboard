@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {CommonModule, NgIf } from '@angular/common';
 import { UserService } from '../../services/user-services/user.service';
 import { IUser } from '../../models/iuser';
@@ -15,7 +15,8 @@ export class User implements OnInit {
   users: IUser[] = [];
   loading = true;
   error: string | null = null;
-
+  userProps: IUser = {} as IUser;
+  editingUserId: String | null = null
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -45,5 +46,33 @@ export class User implements OnInit {
         console.error('Error deleting user:', err);
       },
     });
+  }
+  // start edit function to make the body ready
+  startEdit(user: IUser){
+    this.editingUserId = user._id;
+    this.userProps = {...user};
+  }
+  // cancel edit
+  cancelEdit(){
+    this.editingUserId = null;
+    this.userProps = {} as IUser;
+  }
+
+  updateUser(users: IUser){
+    if(!users._id){
+      alert ("Cann't Update User")
+    }
+    this.userService.updateUserByAdmin(users._id, users).subscribe({
+      next: (updateUser) => {
+        const index = this.users.findIndex(user => user._id === updateUser._id);
+        if(index !== -1){
+          this.users[index] = updateUser;  
+        }
+        this.cancelEdit();
+      },
+     error: (error) => {
+      console.log("Error", error);
+     }
+    })
   }
 }
