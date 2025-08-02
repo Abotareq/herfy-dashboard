@@ -8,7 +8,7 @@ import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NgIf],
+  imports: [CommonModule, FormsModule, RouterModule, NgIf, FormsModule],
   templateUrl: './user.html',
   styleUrls: ['./user.css'],
 })
@@ -18,6 +18,7 @@ export class User implements OnInit {
   error: string | null = null;
   userProps: IUser = {} as IUser;
   editingUserId: string | null = null
+  filterByRole:string=''
   constructor(private userService: UserService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -92,5 +93,12 @@ updateUser(): void {
       console.error("Update error:", error);
     }
   });
+}
+// filter user by role using the two way binding
+filterRole(value: string):IUser[]{
+  value = value.toLowerCase()
+  return this.users.filter((pram: IUser)=>
+    pram.role?.toLowerCase().includes(value)
+  )
 }
 }

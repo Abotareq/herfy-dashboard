@@ -1,3 +1,7 @@
+    <div class="flex gap-5">
+      <label class="text-lg mx-[30px]">filter user by role</label>
+    <input type="text" class="border-2 rounded-sm" [(ngModel)]="filterByRole"/>
+  </div>
 <div class="p-6">
   <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
     <thead class="bg-gray-50">
@@ -39,6 +43,7 @@
         </th>
       </tr>
     </thead>
+
   <tbody class="bg-white divide-y divide-gray-200">
   <tr *ngIf="loading">
     <td colspan="7" class="text-center py-6 text-sm text-gray-500">Loading users...</td>
@@ -49,8 +54,8 @@
   <tr *ngIf="!loading && !error && users?.length === 0">
     <td colspan="7" class="text-center py-6 text-sm text-gray-500">No users found.</td>
   </tr>
-
-  <tr *ngFor="let user of users">
+  
+  <tr *ngFor="let user of filterRole(filterByRole)">
     <!-- ID -->
     <td class="px-6 py-4 whitespace-nowrap">
       <div class="text-sm text-gray-900">{{ user._id }}</div>
