@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { IUser } from '../../models/iuser';
 import { environment } from '../../environment/environment.developemnt';
 import { UsersApiResponse } from '../../models/users-api-response';
@@ -57,4 +57,10 @@ export class UserService {
       withCredentials: true,
     });
   }
+
+  filterUsersByRole(role: string): Observable<IUser[]> {
+  return this.http.get<IUser[]>(`${this.baseUrl}/filter/${role}`, {
+    withCredentials: true,
+  });
+}
 }
