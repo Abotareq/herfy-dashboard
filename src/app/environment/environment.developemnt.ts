@@ -1,4 +1,4 @@
 export const environment = {
-  apiBaseUrl: 'http://localhost:3000',
+  apiBaseUrl: 'https://herfy-xi.vercel.app',
   production: false,
 };
